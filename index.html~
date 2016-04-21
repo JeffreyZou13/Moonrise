@@ -1,0 +1,10 @@
+<html>
+  <head>
+    <title>
+      JS Classes
+    </title>
+  </head>
+  <body> 
+    <script src="foo.js"> </script>
+  </body>
+</html>
