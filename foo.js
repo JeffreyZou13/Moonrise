@@ -43,7 +43,8 @@ var makeAdder = function(n) {
 */
 
 var c = document.getElementById( "sandbox" );
-var ctx = c.getContext("2d")
+var ctx = c.getContext("2d");
+var requestId;
 
 ctx.fillStyle = "#66cccc";
 ctx.fillRect( 0, 0, 500, 500 );
@@ -54,7 +55,7 @@ var right = true;
 var up = true;
 var moving = true; */
 
-var logo = new Image()
+var logo = new Image();
 logo.src = "logo_dvd.jpg";
 
 
@@ -66,43 +67,40 @@ var makeLocation = function() {
     return {
 	x: 250, //default location
 	y: 250,
-	right = true,
-	up = true,
-	moving = true,
-	speed = 1,
-	goUp:function() { y + speed },
-	goDown:function() { y - speed },
-	goRight:function() { x + speed },
-	goLeft:function() { x - speed },
+	right: true,
+	up: true,
+	moving: true,
+	speed: 1,
+	goUp: function() { y = y + speed },
+	goDown:function() { y = y - speed },
+	goRight:function() { x = x + speed },
+	goLeft:function() { x = x - speed },
 	setx:function(s) { this.x = s },
 	sety:function(s) { this.y = s }
     }
-}
-/*
-a = makeCounter();
-a.set(5);
-*/
+};
 
 dvd = makeLocation();
 
-
 var clear = function(){
     console.log("clear");
-    
+
     ctx.fillStyle = "#66cccc";
     ctx.fillRect( 0, 0, 500, 500 );
-    
+
     ctx.fillStyle = "#00868B";
 };
 
 function go() {
+  console.log('hello');
     if(requestId) {
 	if( dvd.x = 0 || dvd.x == 400 )
 	    right = !right;
 	if( dvd.y == 0 || dvd.y == 450 )
 	    down = !down;
-	
+
 	if( moving ) {
+    console.log('he');
 	    if( dvd.right )
 		goRight;
 	    else
@@ -112,12 +110,12 @@ function go() {
 	    else
 		goDown;
 	}
-	
+
 	clear();
 	ctx.drawImage( logo, dvd.x, dvd.y, 100, 50 );
-	
-	requestId = window.requestAnimationFrame( go );	
-	
+  
+	requestId = window.requestAnimationFrame( go );
+
     }
 }
 
@@ -125,11 +123,11 @@ function stop() {
     if(requestId) {
 	window.cancelAnimationFrame( requestId );
 	requestId = undefined;
-	
     }
 }
 
-c.addEventListener( "click", go );
+var move = document.getElementById('go')
+move.addEventListener( "click", go );
 
 var stopBtn = document.getElementById( "stop" );
 stopBtn.addEventListener( "click", stop );
