@@ -26,10 +26,10 @@ var makeLocation = function() {
 	speed: 1,
   setx:function(s) { this.x = s },
   sety:function(s) { this.y = s },
-	goUp: function(){this.y = this.y + this.speed},
-	goDown: function(){this.y = this.y - this.speed},
-	goRight: function(){this.x = this.x + this.speed},
-	goLeft: function(){this.x = this.x - this.speed}
+	goUp: function(){this.y = this.y + this.speed;},
+	goDown: function(){this.y = this.y - this.speed;},
+	goRight: function(){this.x = this.x + this.speed;},
+	goLeft: function(){this.x = this.x - this.speed;},
     }
 };
 
@@ -42,26 +42,29 @@ var clear = function(){
 };
 
 function go() {
-	if( dvd.x == 0 || dvd.x == 400 ) {
+	if( dvd.x <= 0 || dvd.x >= 400 ) {
 	    dvd.right = !dvd.right;
     }
-	if( dvd.y == 0 || dvd.y == 450 )
+	if( dvd.y <= 0 || dvd.y >= 450 ) {
 	    dvd.down = !dvd.down;
+      console.log(dvd.y);
+    }
 
   if( dvd.right ) {
-    console.log(dvd.x);
-		dvd.goRight;
-    console.log(dvd.x);
+    dvd.setx(dvd.x + dvd.speed);
   }
-	else
-		dvd.goLeft;
-	if( dvd.up )
-		dvd.goUp;
-	else
-		dvd.goDown;
+	else {
+		dvd.setx(dvd.x - dvd.speed);
+  }
+	if( dvd.up ) {
+		dvd.sety(dvd.y + dvd.speed);
+  }
+	else {
+		dvd.sety(dvd.y - dvd.speed);
+  }
 
-	clear();
 	ctx.drawImage( logo, dvd.x, dvd.y, 100, 50 );
+	clear();
 	requestId = window.requestAnimationFrame( go );
 }
 
