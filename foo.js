@@ -1,45 +1,6 @@
-/* var base = "this is in f1 in the global namespace";
-var x = "x in the global namespace";
- var f2 = function() {
-    console.log("this is f2");
-}
-
-var f1 = {
-    x : "something in the f1 namespace",
-    f2 : f2,
-    f: function() {
-	console.log("this is in f in the namespace");
-	console.log("x is " + x );
-	console.log("f1.x is " + f1.x)
-	console.log("better way: " + this.x);
-    }
-};
-
-*/
-/*
-var inc = function() {
-    var x = 0;
-    return function() {
-	x = x + 1;
-	return x;
-    }
-}
-*/
-/*
-var add3 = makeAdder(3);
-add3(7) = 10
-*/
-
-/*
-var makeAdder = function(n) {
-//    var x = 0;
-    return function(x) {
-	return x + n
-//	console.log(n);
-//	x = x + n;
-//	return x;
-    }
-}
+/* Project 3 by Samuel Zhang and Jeffrey Zou
+*  SoftDev2 p3
+*  04-22-2016
 */
 
 var c = document.getElementById( "sandbox" );
@@ -49,15 +10,8 @@ var requestId;
 ctx.fillStyle = "#66cccc";
 ctx.fillRect( 0, 0, 500, 500 );
 
-/*var x = 250;
-var y = 250;
-var right = true;
-var up = true;
-var moving = true; */
-
 var logo = new Image();
 logo.src = "logo_dvd.jpg";
-
 
 //It's like a class structure for DVD logos
 var makeLocation = function() {
@@ -69,54 +23,46 @@ var makeLocation = function() {
 	y: 250,
 	right: true,
 	up: true,
-	moving: true,
 	speed: 1,
-	goUp: function() { y = y + speed },
-	goDown:function() { y = y - speed },
-	goRight:function() { x = x + speed },
-	goLeft:function() { x = x - speed },
-	setx:function(s) { this.x = s },
-	sety:function(s) { this.y = s }
+  setx:function(s) { this.x = s },
+  sety:function(s) { this.y = s },
+	goUp: function(){this.y = this.y + this.speed},
+	goDown: function(){this.y = this.y - this.speed},
+	goRight: function(){this.x = this.x + this.speed},
+	goLeft: function(){this.x = this.x - this.speed}
     }
 };
 
 dvd = makeLocation();
 
 var clear = function(){
-    console.log("clear");
-
     ctx.fillStyle = "#66cccc";
     ctx.fillRect( 0, 0, 500, 500 );
-
     ctx.fillStyle = "#00868B";
 };
 
 function go() {
-  console.log('hello');
-    if(requestId) {
-	if( dvd.x = 0 || dvd.x == 400 )
-	    right = !right;
+	if( dvd.x == 0 || dvd.x == 400 ) {
+	    dvd.right = !dvd.right;
+    }
 	if( dvd.y == 0 || dvd.y == 450 )
-	    down = !down;
+	    dvd.down = !dvd.down;
 
-	if( moving ) {
-    console.log('he');
-	    if( dvd.right )
-		goRight;
-	    else
-		goLeft;
-	    if( dvd.up )
-		goUp;
-	    else
-		goDown;
-	}
+  if( dvd.right ) {
+    console.log(dvd.x);
+		dvd.goRight;
+    console.log(dvd.x);
+  }
+	else
+		dvd.goLeft;
+	if( dvd.up )
+		dvd.goUp;
+	else
+		dvd.goDown;
 
 	clear();
 	ctx.drawImage( logo, dvd.x, dvd.y, 100, 50 );
-  
 	requestId = window.requestAnimationFrame( go );
-
-    }
 }
 
 function stop() {
